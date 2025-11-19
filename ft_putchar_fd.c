@@ -1,24 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   ft_putchar_fd.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mbenedet <mbenedet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/17 17:52:54 by mbenedet          #+#    #+#             */
-/*   Updated: 2025/11/19 17:59:23 by mbenedet         ###   ########.fr       */
+/*   Created: 2025/11/11 22:08:29 by marcobenede       #+#    #+#             */
+/*   Updated: 2025/11/16 13:31:54 by mbenedet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "GNL.h"
+#include "libft.h"
 
-char *get_next_line(int fd)
+void	ft_putchar_fd(char c, int fd)
 {
-	int open  (const char* path, int flags [, int mode ]);
-
-}
-
-int main(void)
-{
-	prinf
+	write(fd, &c, 1);
 }

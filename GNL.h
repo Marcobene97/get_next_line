@@ -1,24 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   GNL.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mbenedet <mbenedet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/17 17:52:54 by mbenedet          #+#    #+#             */
-/*   Updated: 2025/11/19 17:59:23 by mbenedet         ###   ########.fr       */
+/*   Created: 2025/11/17 17:52:59 by mbenedet          #+#    #+#             */
+/*   Updated: 2025/11/19 17:58:57 by mbenedet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "GNL.h"
+#ifndef GNL_H
+# define GNL_H
 
-char *get_next_line(int fd)
-{
-	int open  (const char* path, int flags [, int mode ]);
 
-}
+# include <ctype.h>
+# include <limits.h>
+# include <stddef.h>
+# include <stdio.h>
+# include <stdlib.h>
+# include <string.h>
+# include <unistd.h>
+# include <fcntl.h>
 
-int main(void)
-{
-	prinf
-}
+char	*get_next_line(int fd);
+
+#endif

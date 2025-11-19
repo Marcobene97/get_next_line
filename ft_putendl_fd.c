@@ -1,15 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   ft_putendl_fd.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mbenedet <mbenedet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/17 17:52:59 by mbenedet          #+#    #+#             */
-/*   Updated: 2025/11/17 17:57:42 by mbenedet         ###   ########.fr       */
+/*   Created: 2025/11/11 23:10:58 by marcobenede       #+#    #+#             */
+/*   Updated: 2025/11/13 12:14:12 by mbenedet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-//learn how to create a header file correctly
+#include "libft.h"
 
-char *get_next_line(int fd)
+void	ft_putendl_fd(char *s, int fd)
+{
+	int	i;
+
+	if (!s)
+		return ;
+	i = 0;
+	while (s[i])
+	{
+		ft_putchar_fd(s[i], fd);
+		i++;
+	}
+	ft_putchar_fd('\n', fd);
+}
