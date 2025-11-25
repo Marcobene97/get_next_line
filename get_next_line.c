@@ -6,15 +6,27 @@
 /*   By: mbenedet <mbenedet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/17 17:52:54 by mbenedet          #+#    #+#             */
-/*   Updated: 2025/11/19 21:05:14 by mbenedet         ###   ########.fr       */
+/*   Updated: 2025/11/25 18:31:10 by mbenedet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "GNL.h"
 
+//joining stash + buffer - rename as join_stash_buffer
+
+char *get_next_line(int fd)
+{
+	
+}
+
+int main(void)
+{
+	
+}
+
+/* 
 int open  (const char* path, int flags [, int mode ])
 {
-	path = /Desktop/Work/GNLfd;
 	
 }
 
@@ -27,17 +39,14 @@ char *get_next_line(int fd)
 {
 	//Open function
 	// Read function
-	const char *stash;
+	static char stash[BUFFER_SIZE +1];
+	
 	size_t len_of_buffer;
 
 	stash = malloc(len_of_buffer + 1);
 	
-}
+} */
 
-int main(void)
-{
-	
-}
 
 /* 
 Inside get_next_line():
@@ -111,5 +120,11 @@ leftover is the data after the newline
 BUFFER_SIZE controls: how many bytes per read.
 Stash controls: how many bytes accumulated.
 Leftover exists if: newline splits data into two parts.
+
+Stash + buffer combo: Code
+
+new_stash = ft_strjoin(stash, buffer)
+free(stash)
+stash = new_stash
 
 */
