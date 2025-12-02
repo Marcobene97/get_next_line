@@ -6,7 +6,7 @@
 /*   By: mbenedet <mbenedet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/17 10:12:49 by mbenedet          #+#    #+#             */
-/*   Updated: 2025/12/02 11:50:44 by mbenedet         ###   ########.fr       */
+/*   Updated: 2025/12/02 19:03:42 by mbenedet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ size_t	ft_strlen_gnl(const char *string)
 	size_t	c;
 
 	if (string == NULL)
-    return (0);
+    	return (0);
 	c = 0;
 	while (string[c] != '\0')
 	{
@@ -69,6 +69,103 @@ int find_newline(char *stash)
 	}
 	return (-1);
 }
+
+//Line extraction helper
+char *extract_line(char *stash)
+{
+	char		*line;
+	int			i;
+	size_t		linelen;
+
+	if (stash == NULL)
+		return(NULL);
+	i = 0;
+	while (stash[i] != '\n' && stash[i] != '\0' )
+		i++;
+	if (stash[i] == '\n')
+		linelen = i + 1;
+	else
+		linelen = i; 
+	line = malloc(linelen + 1);
+	i = 0;
+	while (i < linelen)
+	{
+		line[i] = stash[i];
+		i++;
+	}
+	line[linelen] = '\0';
+	return (line);
+}
+char *extract_leftover(char *stash)
+{
+	int		newline;
+	char	*leftover;
+	int 	start;
+	int		i;
+	int		leftoverLen;
+	
+	newline = find_newline(stash);
+	if (newline == -1)
+		return (NULL);
+	start = newline + 1;
+	i = start;
+	while (stash[i] != '\0')
+		i++;
+	leftoverLen = i - start;
+	leftover = malloc(leftoverLen + 1);
+	i = 0;
+	while (leftoverLen > i)
+	{
+		leftover[i] = stash[start + i];
+		i++;
+	}
+	leftover[leftoverLen] = '\0';
+	return (leftover);
+}
+
+
+/* 
+Line extraction with commentary
+//Line extraction helper
+char *extract_line(char *stash)
+{
+	char		*line;
+	int			i;
+	size_t		linelen;
+
+	if (stash == NULL)
+		return(NULL);
+
+	// 1. Count until newline or end
+	i = 0;
+	while (stash[i] != '\n' && stash[i] != '\0')
+		i++;
+
+	// 2. Compute line length
+	if (stash[i] == '\n')
+		linelen = i + 1;   // includes newline
+	else
+		linelen = i;       // no newline
+
+	// 3. Allocate
+	line = malloc(linelen + 1);
+
+	// 4. Copy characters
+	i = 0;
+	while (i < linelen)
+	{
+		line[i] = stash[i];
+		i++;
+	}
+
+	// 5. Null terminate
+	line[linelen] = '\0';
+
+	return (line);
+}
+
+
+*/
 
 
 //Testing helpers in isolation
