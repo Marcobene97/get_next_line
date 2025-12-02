@@ -6,7 +6,7 @@
 /*   By: mbenedet <mbenedet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/17 17:52:54 by mbenedet          #+#    #+#             */
-/*   Updated: 2025/12/02 11:20:40 by mbenedet         ###   ########.fr       */
+/*   Updated: 2025/12/02 11:50:15 by mbenedet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ int main(void)
 	char *text = "text.txt";
 	char *line;
 	
-	fd = open("test.txt", O_RDWR | O_CREAT, 0666); // O_RDWR (read/write) and O_CREAT (create if it doesn't exist).
+	fd = open("test.txt", O_RDONLY);
 	//error checking
 	if (fd == -1)
 	{
