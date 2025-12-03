@@ -6,7 +6,7 @@
 /*   By: mbenedet <mbenedet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/17 17:52:54 by mbenedet          #+#    #+#             */
-/*   Updated: 2025/12/02 17:54:14 by mbenedet         ###   ########.fr       */
+/*   Updated: 2025/12/03 23:24:07 by mbenedet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,21 +17,23 @@
 char *get_next_line(int fd)
 {
 	static char *stash;
-	char 		*buffer;
-	char		*new_stash;
-	char		*line;
-	char		*leftover_data;
-	int			newline_index;
-	size_t		i;
-	ssize_t		bytes_read;
+	char *buffer;
+	char *line;
+	char *leftover;
+	ssize_t bytes_read;
 
-	//Delimeter condition
+	//Buffer allocation
+	
 	buffer = malloc(BUFFER_SIZE + 1); //why? It's initialisation --> allocate to initalise
 	if (!buffer)
 		return (NULL);
 	
 	//implement read function
-	bytes_read = read(fd, buffer, BUFFER_SIZE);
+	bytes_read = 1;
+	while (find_newline(stash) == -1 && bytes_read > 0)
+	{
+		read()
+	}
 	buffer[bytes_read] = '\0';
 
 	// Append buffer to stash from get_next_line_utils function strjoin
@@ -83,6 +85,56 @@ int main(void)
 		free(line);
 	}
 }
+
+/* 
+static char *stash;
+	char 		*buffer;
+	char		*new_stash;
+	char		*line;
+	char		*leftover_data;
+	int			newline_index;
+	size_t		i;
+	ssize_t		bytes_read;
+
+	//Delimeter condition
+	buffer = malloc(BUFFER_SIZE + 1); //why? It's initialisation --> allocate to initalise
+	if (!buffer)
+		return (NULL);
+	
+	//implement read function
+	bytes_read = read(fd, buffer, BUFFER_SIZE);
+	buffer[bytes_read] = '\0';
+
+	// Append buffer to stash from get_next_line_utils function strjoin
+	stash = ft_strjoin_gnl(stash, buffer);
+	i = 0;
+	while(buffer[i] != '\n')
+	{
+		stash[i] = buffer[i];
+		newline_index = find_newline(stash);
+		if(newline_index >= '\0')
+			break;
+		i++;
+	}
+	stash[i] = '\0';
+	line = stash;
+	
+	i = stash[newline_index + 1];
+	while (stash != NULL && newline_index == '\0')
+	{
+		leftover_data = malloc(leftover_data + 1);
+		leftover_data[i] = new_stash[i];
+		i++;
+		if(leftover_data[i] == '\0')
+			new_stash = leftover_data;
+		i++;
+	}
+	free(stash);
+	line = new_stash;
+	
+	return (line);
+
+*/
 
 /* char    *get_next_line(int fd)
 {
