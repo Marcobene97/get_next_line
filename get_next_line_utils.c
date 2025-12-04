@@ -6,18 +6,18 @@
 /*   By: mbenedet <mbenedet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/17 10:12:49 by mbenedet          #+#    #+#             */
-/*   Updated: 2025/12/02 19:03:42 by mbenedet         ###   ########.fr       */
+/*   Updated: 2025/12/04 18:31:43 by mbenedet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "GNL.h"
-//find string length used in join stash + buffer
+#include "get_next_line.h"
+
 size_t	ft_strlen_gnl(const char *string)
 {
 	size_t	c;
 
 	if (string == NULL)
-    	return (0);
+		return (0);
 	c = 0;
 	while (string[c] != '\0')
 	{
@@ -25,7 +25,7 @@ size_t	ft_strlen_gnl(const char *string)
 	}
 	return (c);
 }
-//join stash and buffer together - review line 47 logic
+
 char	*ft_strjoin_gnl(char *stash, char *buffer)
 {
 	size_t	len1;
@@ -53,15 +53,15 @@ char	*ft_strjoin_gnl(char *stash, char *buffer)
 	free(stash);
 	return (new_stash);
 }
-//find newline in stash
-int find_newline(char *stash)
+
+int	find_newline(char *stash)
 {
 	size_t	i;
 
 	if (stash == NULL)
 		return (-1);
 	i = 0;
-	while(stash[i] != '\0')
+	while (stash[i] != '\0')
 	{
 		if (stash[i] == '\n')
 			return (i);
@@ -70,23 +70,24 @@ int find_newline(char *stash)
 	return (-1);
 }
 
-//Line extraction helper
-char *extract_line(char *stash)
+char	*extract_line(char *stash)
 {
 	char		*line;
-	int			i;
+	size_t		i;
 	size_t		linelen;
 
 	if (stash == NULL)
-		return(NULL);
+		return (NULL);
 	i = 0;
 	while (stash[i] != '\n' && stash[i] != '\0' )
 		i++;
 	if (stash[i] == '\n')
 		linelen = i + 1;
 	else
-		linelen = i; 
+		linelen = i;
 	line = malloc(linelen + 1);
+	if (!line)
+		return (NULL);
 	i = 0;
 	while (i < linelen)
 	{
@@ -96,14 +97,15 @@ char *extract_line(char *stash)
 	line[linelen] = '\0';
 	return (line);
 }
-char *extract_leftover(char *stash)
+
+char	*extract_leftover(char *stash)
 {
 	int		newline;
 	char	*leftover;
-	int 	start;
+	int		start;
 	int		i;
-	int		leftoverLen;
-	
+	int		leftoverlen;
+
 	newline = find_newline(stash);
 	if (newline == -1)
 		return (NULL);
@@ -111,95 +113,14 @@ char *extract_leftover(char *stash)
 	i = start;
 	while (stash[i] != '\0')
 		i++;
-	leftoverLen = i - start;
-	leftover = malloc(leftoverLen + 1);
-	i = 0;
-	while (leftoverLen > i)
-	{
+	leftoverlen = i - start;
+	if (leftoverlen == 0)
+		return (NULL);
+	leftover = malloc(leftoverlen + 1);
+	if (!leftover)
+		return (NULL);
+	i = -1;
+	while (leftoverlen > ++i)
 		leftover[i] = stash[start + i];
-		i++;
-	}
-	leftover[leftoverLen] = '\0';
-	return (leftover);
+	return (leftover[leftoverlen] = '\0', leftover);
 }
-
-
-/* 
-Line extraction with commentary
-//Line extraction helper
-char *extract_line(char *stash)
-{
-	char		*line;
-	int			i;
-	size_t		linelen;
-
-	if (stash == NULL)
-		return(NULL);
-
-	// 1. Count until newline or end
-	i = 0;
-	while (stash[i] != '\n' && stash[i] != '\0')
-		i++;
-
-	// 2. Compute line length
-	if (stash[i] == '\n')
-		linelen = i + 1;   // includes newline
-	else
-		linelen = i;       // no newline
-
-	// 3. Allocate
-	line = malloc(linelen + 1);
-
-	// 4. Copy characters
-	i = 0;
-	while (i < linelen)
-	{
-		line[i] = stash[i];
-		i++;
-	}
-
-	// 5. Null terminate
-	line[linelen] = '\0';
-
-	return (line);
-}
-
-
-*/
-
-
-//Testing helpers in isolation
-/* int main(void)
-{
-    char *stash = strdup("Hello");
-    char *buffer = strdup("World");
-    char *joined = ft_strjoin_gnl(stash, buffer);
-
-    printf("%s\n", joined);
-} */
-
-/* int main(void)
-{
-	char *s1 = "Hello\nWorld";
-	char *s2 = "\nStart";
-	char *s3 = "NoNewLineHere";
-
-	printf("s1 --> %d\n", find_newline(s1));
-	printf("s1 --> %d\n", find_newline(s2));
-	printf("s1 --> %d\n", find_newline(s3));
-} */
-
-/* 
-// Strjoin test 
-int main(void)
-{
-	char const *s1;
-	char const *s2;
-	char *joint;
-
-	s1 = "Marco";
-	s2 = "Benedettelli";
-	joint = ft_strjoin(s1, s2);
-	printf("%s\n", joint);
-	free(joint);
-} */
