@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbenedet <mbenedet@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marco_linux <marco_linux@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/17 10:12:49 by mbenedet          #+#    #+#             */
-/*   Updated: 2025/12/04 18:31:43 by mbenedet         ###   ########.fr       */
+/*   Updated: 2025/12/06 13:46:54 by marco_linux      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ char	*ft_strjoin_gnl(char *stash, char *buffer)
 	len2 = ft_strlen_gnl(buffer);
 	new_stash = malloc(len1 + len2 + 1);
 	if (new_stash == NULL)
-		return (NULL);
+		return (free(stash), NULL);
 	i = 0;
 	while (i < len1)
 	{
@@ -106,6 +106,8 @@ char	*extract_leftover(char *stash)
 	int		i;
 	int		leftoverlen;
 
+	if (!stash)
+		return (NULL);
 	newline = find_newline(stash);
 	if (newline == -1)
 		return (NULL);

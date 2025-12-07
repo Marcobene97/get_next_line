@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbenedet <mbenedet@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marco_linux <marco_linux@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/17 17:52:59 by mbenedet          #+#    #+#             */
-/*   Updated: 2025/12/04 17:41:41 by mbenedet         ###   ########.fr       */
+/*   Updated: 2025/12/07 04:09:20 by marco_linux      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define GET_NEXT_LINE_H
 
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 42
+#  define BUFFER_SIZE 4
 # endif
 
 # include <ctype.h>
@@ -25,7 +25,7 @@
 # include <string.h>
 # include <unistd.h>
 # include <fcntl.h>
-# include <errno.h> //error handling
+# include <errno.h>
 
 char	*get_next_line(int fd);
 size_t	ft_strlen_gnl(const char *string);

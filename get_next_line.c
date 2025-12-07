@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbenedet <mbenedet@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marco_linux <marco_linux@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/17 17:52:54 by mbenedet          #+#    #+#             */
-/*   Updated: 2025/12/04 18:28:36 by mbenedet         ###   ########.fr       */
+/*   Updated: 2025/12/07 04:24:05 by marco_linux      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,6 @@ char	*get_next_line(int fd)
 	char			*leftover;
 	ssize_t			bytes_read;
 
-	if (BUFFER_SIZE <= 0 || fd < 0)
-		return (NULL);
 	buffer = malloc(BUFFER_SIZE + 1);
 	if (!buffer)
 		return (NULL);
@@ -33,6 +31,8 @@ char	*get_next_line(int fd)
 			return (free(buffer), free(stash), stash = NULL, NULL);
 		buffer[bytes_read] = '\0';
 		stash = ft_strjoin_gnl(stash, buffer);
+		if (!stash)
+			return (free(buffer), NULL);
 	}
 	if (!stash || stash[0] == '\0')
 		return (free(buffer), free(stash), stash = NULL, NULL);
@@ -41,13 +41,16 @@ char	*get_next_line(int fd)
 	return (free(stash), stash = leftover, free(buffer), line);
 }
 
+//	if (BUFFER_SIZE <= 0 || fd < 0)
+//		return (NULL);
+// 	char			*leftover;
+// 	if (BUFFER_SIZE <= 0 || fd < 0)
+//		return (NULL);
 // return (statement1 , statement2 , statement3 , ... + n , returned statement);
-
 // int main(void)
 // {
 // 	int fd;
 // 	char *line;
-
 // 	fd = open("test.txt", O_RDONLY);
 // 	//error checking
 // 	if (fd == -1)
