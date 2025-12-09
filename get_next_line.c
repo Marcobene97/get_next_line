@@ -3,14 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marco_linux <marco_linux@student.42.fr>    +#+  +:+       +#+        */
+/*   By: mbenedet <mbenedet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/17 17:52:54 by mbenedet          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2025/12/07 04:24:05 by marco_linux      ###   ########.fr       */
-=======
-/*   Updated: 2025/12/09 18:45:22 by mbenedet         ###   ########.fr       */
->>>>>>> a1d7e9c (K-changes + static var * issue --> needs rework)
+/*   Updated: 2025/12/09 19:38:16 by mbenedet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
