@@ -3,14 +3,38 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marco_linux <marco_linux@student.42.fr>    +#+  +:+       +#+        */
+/*   By: mbenedet <mbenedet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/17 10:12:49 by mbenedet          #+#    #+#             */
-/*   Updated: 2025/12/06 13:46:54 by marco_linux      ###   ########.fr       */
+/*   Updated: 2025/12/09 19:34:12 by mbenedet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
+
+/* Malloc helper
+Pass the size_tPass string specifiying which fial and succeed
+Static variable in malloc
+ */
+
+ char	*ft_strdup(const char *src)
+{
+	char	*res;
+	int		len;
+	int		i;
+
+	len = 0;
+	while (src[len])
+		len++;
+	res = malloc(sizeof(char) * (len + 1));
+	if (!res)
+		return (NULL);
+	i = -1;
+	while (++i < len)
+		res[i] = src[i];
+	res[i] = '\0';
+	return (res);
+}
 
 size_t	ft_strlen_gnl(const char *string)
 {
@@ -106,18 +130,16 @@ char	*extract_leftover(char *stash)
 	int		i;
 	int		leftoverlen;
 
-	if (!stash)
-		return (NULL);
 	newline = find_newline(stash);
 	if (newline == -1)
 		return (NULL);
 	start = newline + 1;
+	if (stash[start] == '\0')
+		return (NULL);
 	i = start;
 	while (stash[i] != '\0')
 		i++;
 	leftoverlen = i - start;
-	if (leftoverlen == 0)
-		return (NULL);
 	leftover = malloc(leftoverlen + 1);
 	if (!leftover)
 		return (NULL);
@@ -126,3 +148,6 @@ char	*extract_leftover(char *stash)
 		leftover[i] = stash[start + i];
 	return (leftover[leftoverlen] = '\0', leftover);
 }
+
+	// if (leftoverlen == 0)
+	// 	return (NULL);
