@@ -6,13 +6,18 @@
 /*   By: mbenedet <mbenedet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/17 17:52:54 by mbenedet          #+#    #+#             */
-/*   Updated: 2025/12/09 19:38:16 by mbenedet         ###   ########.fr       */
+/*   Updated: 2025/12/10 17:53:51 by mbenedet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
+void free_null(void *ptr)
+{
+	free(ptr);
+	ptr = NULL;
 
+}
 
 char	*get_next_line(int fd)
 {
@@ -20,58 +25,66 @@ char	*get_next_line(int fd)
 	char			*buffer;
 	char			*line;
 	char			*leftover;
+	
 	ssize_t			bytes_read;
 
 	buffer = malloc(BUFFER_SIZE + 1);
 	if (!buffer)
-		return (NULL);
+		return (free_null(stash), NULL);
 	bytes_read = 1;
 	while (bytes_read > 0 && find_newline(stash) == -1)
 	{
 		bytes_read = read(fd, buffer, BUFFER_SIZE);
 		if (bytes_read == -1)
-			return (free(buffer), free(stash), stash = NULL, NULL);
+			return (free_null(buffer), free_null(stash), NULL);
 		buffer[bytes_read] = '\0';
 		stash = ft_strjoin_gnl(stash, buffer);
 		if (!stash)
-			return (free(buffer), NULL);
+			return (free_null(buffer), NULL);
 	}
 	if (bytes_read == 0 && (!stash || !*stash))
-		return (free(buffer), free(stash), stash = NULL, NULL);	
+		return (free(buffer), free(stash), stash = NULL, buffer = NULL, NULL);	
 	if (!stash || stash[0] == '\0')
-		return (free(buffer), free(stash), stash = NULL, NULL);
+		return (free(buffer), free(stash), NULL);
 	line = extract_line(stash);
 	if (!line)
-		return (free(buffer), free(stash), stash = NULL, NULL);
+		return (free(buffer), free(stash), stash = NULL, buffer = NULL, NULL);
 	leftover = extract_leftover(stash);
-	return (free(stash), stash = leftover, free(buffer), line);
+	free(stash);
+	stash = leftover;
+	free(buffer);
+	return (line);
 }
 
-//	if (BUFFER_SIZE <= 0 || fd < 0)
+
+/* int main(void)
+{
+	int fd;
+	char *line;
+	fd = open("test.txt", O_RDONLY);
+
+	if (fd == -1)
+	{
+		perror("Error opening file");
+		return (1);
+	}
+	while ((line = get_next_line(fd)) != NULL)
+	{
+		printf("%s", line);
+		free(line);free(): double
+	}
+	close(fd);
+	return (0);
+} */
+
+//	if (!line)
+//		return (free(buffer), free(stash), stash = NULL, buffer = NULL, NULL);	
+// if (BUFFER_SIZE <= 0 || fd < 0)
 //		return (NULL);
 // 	char			*leftover;
 // 	if (BUFFER_SIZE <= 0 || fd < 0)
 //		return (NULL);
 // return (statement1 , statement2 , statement3 , ... + n , returned statement);
-// int main(void)
-// {
-// 	int fd;
-// 	char *line;
-// 	fd = open("test.txt", O_RDONLY);
-
-// 	if (fd == -1)
-// 	{
-// 		perror("Error opening file");
-// 		return (1);
-// 	}
-// 	while ((line = get_next_line(fd)) != NULL)
-// 	{
-// 		printf("%s", line);
-// 		free(line);
-// 	}
-// 	close(fd);
-// 	return (0);
-// }
 
 /* char	*get_next_line(int fd)
 {
