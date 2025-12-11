@@ -1,3 +1,6 @@
-.json
-.vscode
-.code-workspace
+*.json
+.vscode/
+*.code-workspace
+*.txt
+a.out
+text

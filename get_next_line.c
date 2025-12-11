@@ -6,17 +6,39 @@
 /*   By: mbenedet <mbenedet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/17 17:52:54 by mbenedet          #+#    #+#             */
-/*   Updated: 2025/12/11 20:28:54 by mbenedet         ###   ########.fr       */
+/*   Updated: 2025/12/11 22:53:22 by mbenedet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
+char	*ft_strjoin_free(char *s1, char *s2)
+{
+	size_t	len1;
+	size_t	len2;
+	char	*res;
+
+	if (!s1 && !s2)
+		return (NULL);
+	if (!s1)
+		return (ft_strdup(s2));
+	if (!s2)
+		return (s1);
+	len1 = ft_strlen_gnl(s1);
+	len2 = ft_strlen_gnl(s2);
+	res = malloc(sizeof(char) * (len1 + len2 + 1));
+	if (!res)
+		return (free(s1), NULL);
+	ft_strlcpy(res, s1, len1 + 1);
+	ft_strlcat(res, (char *)s2, len1 + len2 + 1);
+	free(s1);
+	return (res);
+}
 
 void	extract_leftover(char *line, size_t linelen, char *stash)
 {
 	size_t		j;
-	
+
 	j = 0;
 	while (line[linelen + j])
 		j++;
@@ -38,7 +60,7 @@ char	*extract_line(char *line, char *stash)
 	linelen = i + 1;
 	tmp = malloc(linelen + 1);
 	if (!tmp)
-		return (free(line),stash[0] = '\0', NULL);
+		return (free(line), stash[0] = '\0', NULL);
 	i = -1;
 	while (line[++i] && i < linelen)
 		tmp[i] = line[i];
@@ -74,3 +96,19 @@ char	*get_next_line(int fd)
 		line = extract_line(line, stash);
 	return (line);
 }
+
+/* int main(void)
+{
+    int     fd = open("test.txt", O_RDONLY);
+    char    *line;
+
+    if (fd < 0)
+        return (1);
+
+    while ((line = get_next_line(fd)))
+    {
+        printf("LINE: %s", line);
+        free(line);
+    }
+    return (0);
+} */
