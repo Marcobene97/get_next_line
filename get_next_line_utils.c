@@ -6,7 +6,7 @@
 /*   By: mbenedet <mbenedet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/17 10:12:49 by mbenedet          #+#    #+#             */
-/*   Updated: 2025/12/10 17:27:18 by mbenedet         ###   ########.fr       */
+/*   Updated: 2025/12/11 19:30:51 by mbenedet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,76 +78,47 @@ char	*ft_strjoin_gnl(char *stash, char *buffer)
 	return (new_stash);
 }
 
-int	find_newline(char *stash)
+char	*ft_strchr(const char *s, int c)
+{
+	const char		*p;
+	unsigned char	u;
+
+	p = s;
+	u = (unsigned char)c;
+	while (*p)
+	{
+		if (*p == (unsigned char) u)
+			return ((char *)p);
+		p++;
+	}
+	if (u == '\0')
+		return ((char *)p);
+	return (NULL);
+}
+
+size_t	ft_strlcpy(char *dst, const char *src, size_t size)
 {
 	size_t	i;
+	size_t	lenstr;
 
-	if (stash == NULL)
-		return (-1);
 	i = 0;
-	while (stash[i] != '\0')
+	while (src[i] != '\0')
+		i++;
+	lenstr = i;
+	if (size == 0)
+		return (lenstr);
+	i = 0;
+	while (i < size - 1 && i < lenstr)
 	{
-		if (stash[i] == '\n')
-			return (i);
+		dst[i] = src[i];
 		i++;
 	}
-	return (-1);
+	dst[i] = '\0';
+	return (lenstr);
 }
 
-char	*extract_line(char *stash)
-{
-	char		*line;
-	size_t		i;
-	size_t		linelen;
 
-	if (stash == NULL)
-		return (NULL);
-	i = 0;
-	while (stash[i] != '\n' && stash[i] != '\0' )
-		i++;
-	if (stash[i] == '\n')
-		linelen = i + 1;
-	else
-		linelen = i;
-	line = malloc(linelen + 1);
-	if (!line)
-		return (NULL);
-	i = 0;
-	while (i < linelen)
-	{
-		line[i] = stash[i];
-		i++;
-	}
-	line[linelen] = '\0';
-	return (line);
-}
 
-char	*extract_leftover(char *stash)
-{
-	int		newline;
-	char	*leftover;
-	int		start;
-	int		i;
-	int		leftoverlen;
-
-	newline = find_newline(stash);
-	if (newline == -1)
-		return (NULL);
-	start = newline + 1;
-	if (stash[start] == '\0')
-		return (NULL);
-	i = start;
-	while (stash[i] != '\0')
-		i++;
-	leftoverlen = i - start;
-	leftover = malloc(leftoverlen + 1);
-	if (!leftover)
-		return (NULL);
-	i = -1;
-	while (leftoverlen > ++i)
-		leftover[i] = stash[start + i];
-	return (leftover[leftoverlen] = '\0', leftover);
-}
 
 	// if (leftoverlen == 0)
 	// 	return (NULL);

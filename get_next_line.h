@@ -6,7 +6,7 @@
 /*   By: mbenedet <mbenedet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/17 17:52:59 by mbenedet          #+#    #+#             */
-/*   Updated: 2025/12/10 17:53:01 by mbenedet         ###   ########.fr       */
+/*   Updated: 2025/12/11 19:04:52 by mbenedet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,9 @@
 char	*get_next_line(int fd);
 size_t	ft_strlen_gnl(const char *string);
 char	*ft_strjoin_gnl(char *stash, char *buffer);
-char	*extract_line(char *stash);
-char	*extract_leftover(char *stash);
-int		find_newline(char *stash);
-void free_null(void *ptr);
+char	*extract_line(char *line, char *stash);
+void	extract_leftover(char *line, size_t linelen, char *stash);
+char	*ft_strchr(const char *s, int c);
+size_t	ft_strlcpy(char *dst, const char *src, size_t size);
 
 #endif
