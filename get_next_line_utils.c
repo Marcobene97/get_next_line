@@ -6,7 +6,7 @@
 /*   By: mbenedet <mbenedet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/17 10:12:49 by mbenedet          #+#    #+#             */
-/*   Updated: 2025/12/11 19:30:51 by mbenedet         ###   ########.fr       */
+/*   Updated: 2025/12/11 19:49:19 by mbenedet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ Pass the size_tPass string specifiying which fial and succeed
 Static variable in malloc
  */
 
- char	*ft_strdup(const char *src)
+char	*ft_strdup(const char *src)
 {
 	char	*res;
 	int		len;
@@ -50,75 +50,90 @@ size_t	ft_strlen_gnl(const char *string)
 	return (c);
 }
 
-char	*ft_strjoin_gnl(char *stash, char *buffer)
-{
-	size_t	len1;
-	size_t	len2;
-	size_t	i;
-	char	*new_stash;
 
-	len1 = ft_strlen_gnl(stash);
-	len2 = ft_strlen_gnl(buffer);
-	new_stash = malloc(len1 + len2 + 1);
-	if (new_stash == NULL)
-		return (free(stash), NULL);
-	i = 0;
-	while (i < len1)
-	{
-		new_stash[i] = stash[i];
-		i++;
-	}
-	while (i < len1 + len2)
-	{
-		new_stash[i] = buffer[i - len1];
-		i++;
-	}
-	new_stash[i] = '\0';
-	free(stash);
-	return (new_stash);
-}
 
 char	*ft_strchr(const char *s, int c)
 {
-	const char		*p;
-	unsigned char	u;
-
-	p = s;
-	u = (unsigned char)c;
-	while (*p)
+	if (!s)
+		return (NULL);
+	while (*s != '\0')
 	{
-		if (*p == (unsigned char) u)
-			return ((char *)p);
-		p++;
+		if (*s == (char)c)
+			return ((char *)s);
+		s++;
 	}
-	if (u == '\0')
-		return ((char *)p);
-	return (NULL);
+	if ((char)c == '\0')
+		return ((char *)s);
+	return (0);
 }
 
-size_t	ft_strlcpy(char *dst, const char *src, size_t size)
+size_t	ft_strlcpy(char *dest, const char *src, size_t dstsize)
 {
 	size_t	i;
-	size_t	lenstr;
+	size_t	src_len;
 
+	src_len = 0;
+	while (src[src_len])
+		src_len++;
+	if (dstsize == 0)
+		return (src_len);
 	i = 0;
-	while (src[i] != '\0')
-		i++;
-	lenstr = i;
-	if (size == 0)
-		return (lenstr);
-	i = 0;
-	while (i < size - 1 && i < lenstr)
+	while (src[i] && i < dstsize - 1)
 	{
-		dst[i] = src[i];
+		dest[i] = src[i];
 		i++;
 	}
-	dst[i] = '\0';
-	return (lenstr);
+	dest[i] = '\0';
+	return (src_len);
 }
 
+size_t	ft_strlcat(char *dst, char *src, size_t dstsize)
+{
+	size_t	i;
+	size_t	j;
+	size_t	len;
 
+	i = 0;
+	j = 0;
+	while (src[i])
+		i++;
+	while (dst[j] && j < dstsize)
+		j++;
+	len = i + j;
+	if (dstsize <= j)
+		return (len);
+	i = 0;
+	while (src[i] && i < (dstsize - j - 1))
+	{
+		dst[j + i] = src[i];
+		i++;
+	}
+	dst[j + i] = '\0';
+	return (len);
+}
+char	*ft_strjoin_free(char *s1, char *s2)
+{
+	size_t	len_s1;
+	size_t	len_s2;
+	char	*res;
 
-
-	// if (leftoverlen == 0)
-	// 	return (NULL);
+	if (!s1 && !s2)
+		return (NULL);
+	if (!s1)
+		return (ft_strdup(s2));
+	if (!s2)
+		return (s1);
+	len_s1 = 0;
+	while (s1[len_s1])
+		len_s1++;
+	len_s2 = 0;
+	while (s2[len_s2])
+		len_s2++;
+	res = malloc(sizeof(char) * (len_s1 + len_s2 + 1));
+	if (!res)
+		return (free(s1), NULL);
+	ft_strlcpy(res, s1, len_s1 + 1);
+	ft_strlcat(res, (char *)s2, len_s1 + len_s2 + 1);
+	free(s1);
+	return (res);
+}

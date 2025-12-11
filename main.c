@@ -15,7 +15,7 @@ int main() {
 	close(descriptor);
 } */
 
-/* #include <fcntl.h>
+#include <fcntl.h>
 #include <stdio.h>
 #include "get_next_line.h"
 
@@ -33,4 +33,4 @@ int main(void)
         free(line);
     }
     return (0);
-} */
+}
