@@ -6,7 +6,7 @@
 /*   By: mbenedet <mbenedet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/17 17:52:54 by mbenedet          #+#    #+#             */
-/*   Updated: 2025/12/15 15:57:13 by mbenedet         ###   ########.fr       */
+/*   Updated: 2025/12/15 16:00:16 by mbenedet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ char	*get_next_line(int fd)
 	return (line);
 }
 
-int main(void)
+/* int main(void)
 {
     int     fd = open("test.txt", O_RDONLY);
     char    *line;
@@ -111,4 +111,4 @@ int main(void)
         free(line);
     }
     return (0);
-}
+} */
